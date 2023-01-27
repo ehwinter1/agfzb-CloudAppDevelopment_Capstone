@@ -23,20 +23,42 @@ def about(request):
 
 
 # Create a `contact` view to return a static contact page
-#def contact(request):
 def contact(request):
     return render(request, 'djangoapp/contact.html')
+
 # Create a `login_request` view to handle sign in request
-# def login_request(request):
-# ...
+def login_request(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('djangoapp:index')
+        else:
+            error_msg = 'Invalid credentials.'
+            return render(request, 'djangoapp/index.html', {'error': error_msg})
+    else:
+        return render(request, 'djangoapp/index.html')
 
 # Create a `logout_request` view to handle sign out request
-# def logout_request(request):
-# ...
+def logout_request(request):
+    logout(request)
+    return redirect('djangoapp:index')
 
 # Create a `registration_request` view to handle sign up request
-# def registration_request(request):
-# ...
+def registration_request(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first-name')
+        last_name = request.POST.get('last-name')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = User.objects.create_user(username=username, password=password, first_name=first_name, last_name=last_name)
+        user.save()
+        message = "User successfully created."
+        return render(request, 'djangoapp/registration.html', {"message": message})
+    else:
+        return render(request, 'djangoapp/registration.html')
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
