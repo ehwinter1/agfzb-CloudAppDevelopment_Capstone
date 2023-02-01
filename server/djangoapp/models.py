@@ -25,6 +25,7 @@ import json
 
 # <HINT> Create a plain Python class `CarDealer` to hold dealer data
 class CarDealer:
+
     def __init__(self, address, city, full_name, id, lat, long, short_name, st, zip):
         # Dealer address
         self.address = address
@@ -47,7 +48,6 @@ class CarDealer:
 
     def __str__(self):
         return "Dealer name: " + self.full_name
-
 # <HINT> Create a plain Python class `DealerReview` to hold review data
 
 class CarMake(models.Model):
@@ -70,15 +70,18 @@ class CarModel(models.Model):
     def __str__(self):
         return f"{self.make} - {self.name}"
 
-class CarDealer:
-    def __init__(self, dealer_id, name, address):
-        self.dealer_id = dealer_id
-        self.name = name
-        self.address = address
 
 class DealerReview:
-    def __init__(self, dealer_id, rating, review, reviewer_name):
-        self.dealer_id = dealer_id
-        self.rating = rating
+    def __init__(self, dealership, name, purchase, review, purchase_date, car_make, car_model, car_year, sentiment, id):
+        self.dealership = dealership
+        self.name = name
+        self.purchase = purchase
         self.review = review
-        self.reviewer_name = reviewer_name
+        self.purchase_date = purchase_date
+        self.car_make = car_make
+        self.car_model = car_model
+        self.car_year = car_year
+        self.sentiment = sentiment
+        self.id = id
+    def __str__(self):
+        return f"Dealer Review ID: {self.id} | Dealer: {self.dealership} | Customer Name: {self.name} | Sentiment: {self.sentiment}"
