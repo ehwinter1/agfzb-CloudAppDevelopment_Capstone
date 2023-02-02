@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dealership Review</title>
+    <title>Best Cars</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -54,30 +54,38 @@
     </nav>
     
     <!--Add a dealer table here -->
-    <table class="table" id="table">
+    <table class="table" id="table" data-filter-control="true">
         <thead>
-            <tr>
-                <th data-field="id">ID</th>
-                <th data-field="full_name">Dealer Name</th>
-                <th data-field="city">City</th>
-                <th data-field="address">Address</th>
-                <th data-field="zip">Zip</th>
-                <th data-field="state">State</th>
-            </tr>
+          <tr>
+            <th data-field="id">ID</th>
+            <th data-field="name">Dealer Name</th>
+            <th data-field="city">City</th>
+            <th data-field="address">Address</th>
+            <th data-field="zip">Zip</th>
+            <th data-field="state" data-filter-control="select">State</th>
+          </tr>
         </thead>
         <tbody>
-            {% for dealer in dealership_list %}
+          {% for dealer in dealership_list %}
             <tr>
-                <td>{{dealer.id}}</td>
-                <td><a href="{% url 'djangoapp:index' %}">{{dealer.full_name}}</a></td>
-                <td>{{dealer.city}}</td>
-                <td>{{dealer.address}}</td>
-                <td>{{dealer.zip}}</td>
-                <td>{{dealer.state}}</td>
+              <td>{{ dealer.id }}</td>
+              <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{ dealer.full_name }}</a></td>
+              <td>{{ dealer.city }}</td>
+              <td>{{ dealer.address }}</td>
+              <td>{{ dealer.zip }}</td>
+              <td>{{ dealer.st }}</td>
             </tr>
-            {% endfor %}
+          {% endfor %}
         </tbody>
-    </table>
+      </table>
+      
+      <script>
+        $(function() {
+          $('#table').bootstrapTable()
+        })
+      </script>
+      </html>
+      
     
     <footer>
         <nav>
